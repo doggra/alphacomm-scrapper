@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
 
-# Define here the models for your scraped items
-#
-# See documentation in:
-# http://doc.scrapy.org/en/latest/topics/items.html
+from scrapy import Item, Field
 
-import scrapy
+class ShopItem(Item):
+    vendor = Field()
+    sku = Field()
+    upc = Field()
+    is_serial = Field()
+    short_desc = Field()
+    long_desc = Field()
+    msrp = Field()
+    cost = Field()
+    department = Field()
+    category = Field()
+    manufacturer = Field()
+    active = Field()
 
-
-class ShopItem(scrapy.Item):
-    vendor = scrapy.Field()
-    manufacturer = scrapy.Field()
-    msrp = scrapy.Field()
-    pass
