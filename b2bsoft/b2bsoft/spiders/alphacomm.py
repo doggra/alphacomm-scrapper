@@ -5,7 +5,7 @@ __email__ = "doggra@protonmail.com"
 
 import scrapy
 from scrapy.exceptions import CloseSpider
-from b2bsoft.utils import get_json_from_response, close_spider, create_new_item, strip_tags
+from b2bsoft.utils import get_json_from_response, close_spider, create_new_item
 
 
 class AlphacommSpider(scrapy.Spider):
@@ -37,7 +37,7 @@ class AlphacommSpider(scrapy.Spider):
         # prepare list of groupids
         item_groups_ids = [ d['label'] for d in custitem_groupid['values']\
                                                          if 'label' in d ]
-        # make request for every groupid
+        # and make request for every groupid
         for group_id in item_groups_ids:
 
             yield scrapy.Request(
@@ -52,7 +52,7 @@ class AlphacommSpider(scrapy.Spider):
     def item_group_details(self, response):
         """ Get specific item group details """
 
-        # Get all items from group
+        # get all items from group
         jsonresponse = get_json_from_response(response)
         items_list = jsonresponse['items']
 
@@ -84,7 +84,7 @@ class AlphacommSpider(scrapy.Spider):
                 it['cost'] = "${}".format(item['onlinecustomerprice'],)
 
             except KeyError, e:
-                self.logging.error(str(e))
+                self.logger.warning(str(e))
 
             # done, save item
             self.scrapped_sku.append(item['itemid'])
