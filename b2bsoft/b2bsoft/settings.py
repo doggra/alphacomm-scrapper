@@ -7,6 +7,27 @@ NEWSPIDER_MODULE = 'b2bsoft.spiders'
 USER_AGENT = 'b2bsoft (+http://www.yourdomain.com)'
 ROBOTSTXT_OBEY = False
 
+FEED_EXPORTERS = {
+	'csv': 'b2bsoft.exporters.CsvExporter'
+}
+
+FIELDS_TO_EXPORT = [
+	'vendor',
+	'sku',
+	'upc',
+	'is_serial',
+	'short_desc',
+	'long_desc',
+	'msrp',
+	'cost',
+	'department',
+	'category',
+	'manufacturer',
+	'active',
+]
+
+CSV_DELIMITER = "|"
+
 #DOWNLOAD_DELAY = 3
 #CONCURRENT_REQUESTS = 32
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
@@ -32,9 +53,13 @@ ROBOTSTXT_OBEY = False
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
 
-#ITEM_PIPELINES = {
-#    'b2bsoft.pipelines.B2BsoftPipeline': 300,
-#}
+# ITEM_PIPELINES = {'b2bsoft.pipelines.CSVPipeline': 300 }
+
+HTTPCACHE_ENABLED = True
+HTTPCACHE_EXPIRATION_SECS = 0
+HTTPCACHE_DIR = 'httpcache'
+HTTPCACHE_IGNORE_HTTP_CODES = []
+HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -49,12 +74,3 @@ ROBOTSTXT_OBEY = False
 #AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
 # Enable showing throttling stats for every response received:
 #AUTOTHROTTLE_DEBUG = False
-
-
-# Enable and configure HTTP caching (disabled by default)
-# See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
-#HTTPCACHE_ENABLED = True
-#HTTPCACHE_EXPIRATION_SECS = 0
-#HTTPCACHE_DIR = 'httpcache'
-#HTTPCACHE_IGNORE_HTTP_CODES = []
-#HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
