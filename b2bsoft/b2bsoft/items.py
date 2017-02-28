@@ -9,7 +9,7 @@ import scrapy
 
 
 class ShopItem(scrapy.Item):
-	vendor = scrapy.Field()
+    vendor = scrapy.Field()
     manufacturer = scrapy.Field()
     msrp = scrapy.Field()
     pass
