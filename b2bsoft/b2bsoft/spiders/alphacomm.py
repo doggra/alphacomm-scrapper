@@ -27,14 +27,14 @@ class AlphacommSpider(scrapy.Spider):
 
         jsonresponse = get_json_from_response(response)
 
-        # find dicitionary containing customitem groups
         try:
+            # to find dicitionary containing items groups
             custitem_groupid = next((d for d in jsonresponse['facets']\
                               if d['id'] == "custitem_groupid"), None)
         except KeyError:
             close_spider('No `facets` dict found')
 
-        # create list of groupids
+        # prepare list of groupids
         item_groups_ids = [ d['label'] for d in custitem_groupid['values']\
                                                          if 'label' in d ]
         # make request for every groupid
@@ -68,13 +68,16 @@ class AlphacommSpider(scrapy.Spider):
                       if d['id'] == "custitem_sca_brand"), None)
             brands = ', '.join([ b['label'] for b in brand_dict['values'] ])
 
-            # populate item fields
-            it['long_desc'] = item['storedetaileddescription'].replace('\r\n', ' ').strip("\"")
+            # populate fields
             it['category'] = cat['values'][0]['label']
             it['manufacturer'] = brands
             it['sku'] = item['itemid']
             it['upc'] = item['custitem_upc']
             it['short_desc'] = item['storedescription']
+
+            # clean long description field
+            desc = item['storedetaileddescription']
+            it['long_desc'] = desc.replace('\r\n', ' ').strip("\"")
 
             # log event: no price set
             try:
