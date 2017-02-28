@@ -2,11 +2,16 @@
 
 import json
 from b2bsoft.items import ShopItem
+from HTMLParser import HTMLParser
 
 def create_new_item():
-	item = ShopItem()
-	item['Vendor'] = "Alphacomm"
-	return item
+	it = ShopItem()
+	it['vendor'] = "Alphacomm"
+	it['is_serial'] = 0
+	it['msrp'] = 0
+	it['department'] = "Accessories"
+	it['active'] = 1
+	return it
 
 def get_json_from_response(response):
     """ Get json from API response """
