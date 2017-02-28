@@ -8,7 +8,8 @@
 import scrapy
 
 
-class B2BsoftItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
+class ShopItem(scrapy.Item):
+	vendor = scrapy.Field()
+    manufacturer = scrapy.Field()
+    msrp = scrapy.Field()
     pass
