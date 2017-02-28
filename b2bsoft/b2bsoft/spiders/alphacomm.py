@@ -4,18 +4,9 @@ __author__ = "Radosław (Doggra) Przytuła"
 __email__ = "doggra@protonmail.com"
 
 import scrapy
-import json
 from scrapy.exceptions import CloseSpider
 from b2bsoft.items import ShopItem
-
-def get_json_from_response(response):
-    """ Get json from API response """
-    return json.loads(response.body_as_unicode())
-
-def close_spider(message=""):
-    """ Close spider with msg to logger """
-    raise CloseSpider(reason=message)
-
+from b2bsoft.utils import get_json_from_response, close_spider
 
 class AlphacommSpider(scrapy.Spider):
     """ Shopalphacomm.com spider """
