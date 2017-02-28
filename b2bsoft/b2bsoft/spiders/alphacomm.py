@@ -5,8 +5,7 @@ __email__ = "doggra@protonmail.com"
 
 import scrapy
 from scrapy.exceptions import CloseSpider
-from b2bsoft.items import ShopItem
-from b2bsoft.utils import get_json_from_response, close_spider
+from b2bsoft.utils import get_json_from_response, close_spider, create_new_item
 
 class AlphacommSpider(scrapy.Spider):
     """ Shopalphacomm.com spider """
@@ -50,7 +49,7 @@ class AlphacommSpider(scrapy.Spider):
         """ Get specific item group details 
         """
 
-        item = ShopItem()
+        item = create_new_item()
         jsonresponse = get_json_from_response(response)
 
         # Get list of group items
