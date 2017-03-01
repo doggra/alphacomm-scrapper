@@ -9,10 +9,14 @@ Project installation
 Running spider
 --------------
 
->>> scrapy crawl -o alphacomm_`date +%s`.csv alphacomm -L INFO --logfile=./alphacomm.log
+>>> scrapy crawl \
+                 -o alphacomm_`date +%s`.csv \
+                 --logfile=./alphacomm.log alphacomm
+                 -L INFO \
 
 
-Logging
--------
-
-All loging goes to `alphacomm.log`
+Command line parameters
+-----------------------
+* -o filename.csv `scrap items to filename.csv`
+* --logfile=name.log `specify log filename as 'name.log'`
+* -L LEVEL `debug level (ERROR, WARNING, INFO)`
