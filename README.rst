@@ -1,14 +1,14 @@
 Installation
 ------------
 
-    >>> $ virtualenv env
-    >>> $ source env/bin/activate
-    >>> $ pip install scrapy
+>>> $ virtualenv env
+>>> $ source env/bin/activate
+>>> $ pip install scrapy
 
 
 Running spider
 --------------
     
-    #) Alphacomm
+#) Alphacomm
 
-        >>> scrapy crawl -o alphacomm_`date +%s`.csv alphacomm -L INFO --logfile=./alphacomm.log
+>>> scrapy crawl -o alphacomm_`date +%s`.csv alphacomm -L INFO --logfile=./alphacomm.log
