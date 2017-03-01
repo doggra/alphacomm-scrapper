@@ -9,7 +9,7 @@ Project installation
 Running spider
 --------------
 
-  >>> scrapy crawl -o alphacomm_`date +%s`.csv \
+  >>> $ scrapy crawl -o alphacomm_`date +%s`.csv \
                    --logfile=./alphacomm.log alphacomm \
                    -L INFO
 
