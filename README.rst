@@ -1,3 +1,8 @@
+Alphacomm WebScraper
+====================
+This is shopalphacomm.com scraper for obtaining all SKUs from shop catalog.
+
+
 Project installation
 --------------------
 
@@ -9,7 +14,7 @@ Project installation
 
 Running spider
 --------------
-
+>>> $ cd b2bsoft
 >>> $ scrapy crawl -L INFO -o alphacomm_`date +%s`.csv --logfile=./alphacomm.log alphacomm
 
 
