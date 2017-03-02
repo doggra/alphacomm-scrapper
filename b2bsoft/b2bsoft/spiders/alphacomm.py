@@ -7,7 +7,6 @@ import scrapy
 from scrapy.exceptions import CloseSpider
 from b2bsoft.utils import get_json_from_response, close_spider, create_new_item
 
-
 class AlphacommSpider(scrapy.Spider):
     """ Shopalphacomm.com spider 
         API URL: http://shopalphacomm.com/api/items 
@@ -21,6 +20,7 @@ class AlphacommSpider(scrapy.Spider):
     def __init__(self):
         self.scrapped_sku = []
 
+
     def parse(self, response):
         """ Initial crawling function. 
         """
@@ -28,7 +28,7 @@ class AlphacommSpider(scrapy.Spider):
         jsonresponse = get_json_from_response(response)
 
         try:
-            # to find dicitionary containing items groups
+            # to find dicitionary containing items groups (facets/custitem_groupid)
             custitem_groupid = next((d for d in jsonresponse['facets']\
                               if d['id'] == "custitem_groupid"), None)
         except KeyError:
@@ -37,36 +37,36 @@ class AlphacommSpider(scrapy.Spider):
         # prepare list of groupids
         item_groups_ids = [ d['label'] for d in custitem_groupid['values']\
                                                          if 'label' in d ]
-        # and make request for every groupid
-        for group_id in item_groups_ids:
+        # make request for every group
+        for group_id in item_groups_ids[:1]:
 
             yield scrapy.Request(
-
-                "http://shopalphacomm.com/api/items?include=facets&"\
-                    +"custitem_groupid={}&fieldset=details".format(group_id,),
-
+                self.get_group_url(group_id),
                 callback=self.item_group_details,
-                meta={'groupid': group_id}
+                meta={
+                    'groupid': group_id
+                }
             )
 
     def item_group_details(self, response):
-        """ Get specific item group details """
+        """ Item group details """
 
-        # get all items from group
+        self.logger.info("SCRAPED: {}".format(response.request.url,))
+        # get all items from that group
         jsonresponse = get_json_from_response(response)
         items_list = jsonresponse['items']
 
-        # Export each item
+        # export each item
         for item in items_list:
 
             it = create_new_item()
 
-            # get producttype and brand from response
+            # find objects by `id` key
             cat = next((d for d in jsonresponse['facets'] \
                       if d['id'] == "custitem_sca_producttype"), None)
-            brand_dict = next((d for d in jsonresponse['facets'] \
+            bra = next((d for d in jsonresponse['facets'] \
                       if d['id'] == "custitem_sca_brand"), None)
-            brands = ', '.join([ b['label'] for b in brand_dict['values'] ])
+            brands = ', '.join([ b['label'] for b in bra['values'] ])
 
             # populate fields
             it['category'] = cat['values'][0]['label']
@@ -77,15 +77,23 @@ class AlphacommSpider(scrapy.Spider):
 
             # clean long description field
             desc = item['storedetaileddescription']
-            it['long_desc'] = desc.replace('\r\n', ' ').strip("\"")
+            it['long_desc'] = ' '.join(desc.split()).replace("\"\"", "\"")
 
-            # log event: no price set
-            try:
-                it['cost'] = "${}".format(item['onlinecustomerprice'],)
+            # # log event: no price set
+            # try:
+            #     it['cost'] = "${}".format(item['onlinecustomerprice'],)
 
-            except KeyError, e:
-                self.logger.warning(str(e))
+            # except KeyError, e:
+            #     self.logger.warning(str(e))
 
             # done, save item
             self.scrapped_sku.append(item['itemid'])
             yield it
+
+
+    def get_group_url(self, group_id):
+        """ Prepare url for group details 
+        """
+        url = "http://shopalphacomm.com/api/items?custitem_groupid={}".format(group_id,)
+        url += "&include=facets&fieldset=details"
+        return url
