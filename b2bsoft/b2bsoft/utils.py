@@ -4,12 +4,14 @@ import json
 from b2bsoft.items import ShopItem
 from HTMLParser import HTMLParser
 
+
 def create_new_item():
 	it = ShopItem()
 	it['vendor'] = "Alphacomm"
 	it['is_serial'] = 0
+	it['cost'] = 0
 	it['msrp'] = 0
-	it['department'] = "Accessories"
+	it['department'] = "Accessory"
 	it['active'] = 1
 	return it
 
