@@ -48,9 +48,9 @@ CONCURRENT_REQUESTS_PER_IP = CONCURRENT_REQUESTS
 #    'b2bsoft.middlewares.MyCustomDownloaderMiddleware': 543,
 #}
 
-#EXTENSIONS = {
-#    'scrapy.extensions.telnet.TelnetConsole': None,
-#}
+EXTENSIONS = {
+   'b2bsoft.extensions.ExcelExtension': 100,
+}
 
 # ITEM_PIPELINES = {'b2bsoft.pipelines.CSVPipeline': 300 }
 
