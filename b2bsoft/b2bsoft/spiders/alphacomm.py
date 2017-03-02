@@ -12,6 +12,7 @@ import scrapy
 from scrapy.exceptions import CloseSpider
 from b2bsoft.utils import get_json_from_response, close_spider, create_new_item
 
+
 class AlphacommSpider(scrapy.Spider):
 
     name = "alphacomm"
@@ -24,8 +25,7 @@ class AlphacommSpider(scrapy.Spider):
 
 
     def parse(self, response):
-        """ Initial crawling function. 
-        """
+        """ Initial crawling function. """
 
         jsonresponse = get_json_from_response(response)
 
@@ -53,7 +53,6 @@ class AlphacommSpider(scrapy.Spider):
     def item_group_details(self, response):
         """ Item group details """
 
-        self.logger.info("SCRAPED: {}".format(response.request.url,))
         # get all items from that group
         jsonresponse = get_json_from_response(response)
         items_list = jsonresponse['items']
@@ -81,21 +80,19 @@ class AlphacommSpider(scrapy.Spider):
             desc = item['storedetaileddescription']
             it['long_desc'] = ' '.join(desc.split()).replace("\"\"", "\"").replace("\r","").replace("\n","")
 
-            # log event: no price set
             try:
                 it['cost'] = "${}".format(item['onlinecustomerprice'],)
-
             except KeyError, e:
                 self.logger.warning(str(e))
 
             # done, save item
             self.scrapped_sku.append(item['itemid'])
+            
             yield it
 
-
     def get_group_url(self, group_id):
-        """ Prepare url for group details 
-        """
+        """ Prepare url for group details """
+
         url = "http://shopalphacomm.com/api/items?custitem_groupid={}".format(group_id,)
         url += "&include=facets&fieldset=details"
         return url
