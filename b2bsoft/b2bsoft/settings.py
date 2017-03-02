@@ -4,7 +4,7 @@ BOT_NAME = 'b2bsoft'
 SPIDER_MODULES = ['b2bsoft.spiders']
 NEWSPIDER_MODULE = 'b2bsoft.spiders'
 
-USER_AGENT = 'b2bsoft (+http://www.yourdomain.com)'
+USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36'
 ROBOTSTXT_OBEY = False
 
 FEED_EXPORTERS = {
@@ -28,10 +28,9 @@ FIELDS_TO_EXPORT = [
 
 CSV_DELIMITER = "|"
 
-#DOWNLOAD_DELAY = 3
-#CONCURRENT_REQUESTS = 32
-#CONCURRENT_REQUESTS_PER_DOMAIN = 16
-#CONCURRENT_REQUESTS_PER_IP = 16
+CONCURRENT_REQUESTS = 1
+CONCURRENT_REQUESTS_PER_DOMAIN = CONCURRENT_REQUESTS
+CONCURRENT_REQUESTS_PER_IP = CONCURRENT_REQUESTS
 
 #COOKIES_ENABLED = False
 #TELNETCONSOLE_ENABLED = False
@@ -55,11 +54,11 @@ CSV_DELIMITER = "|"
 
 # ITEM_PIPELINES = {'b2bsoft.pipelines.CSVPipeline': 300 }
 
-HTTPCACHE_ENABLED = True
-HTTPCACHE_EXPIRATION_SECS = 0
-HTTPCACHE_DIR = 'httpcache'
-HTTPCACHE_IGNORE_HTTP_CODES = []
-HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+# HTTPCACHE_ENABLED = True
+# HTTPCACHE_EXPIRATION_SECS = 0
+# HTTPCACHE_DIR = 'httpcache'
+# HTTPCACHE_IGNORE_HTTP_CODES = []
+# HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 
 # Enable and configure the AutoThrottle extension (disabled by default)
