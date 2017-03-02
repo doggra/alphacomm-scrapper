@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 
+""" Shopalphacomm scraper 
+    API URL: http://shopalphacomm.com/api/items 
+"""
+
 __author__ = "Radosław (Doggra) Przytuła"
 __email__ = "doggra@protonmail.com"
+__version__ = "1.0.1"
 
 import scrapy
 from scrapy.exceptions import CloseSpider
 from b2bsoft.utils import get_json_from_response, close_spider, create_new_item
 
 class AlphacommSpider(scrapy.Spider):
-    """ Shopalphacomm.com spider 
-        API URL: http://shopalphacomm.com/api/items 
-    """
 
     name = "alphacomm"
     allowed_domains = ["shopalphacomm.com"]
@@ -38,7 +40,7 @@ class AlphacommSpider(scrapy.Spider):
         item_groups_ids = [ d['label'] for d in custitem_groupid['values']\
                                                          if 'label' in d ]
         # make request for every group
-        for group_id in item_groups_ids[:1]:
+        for group_id in item_groups_ids:
 
             yield scrapy.Request(
                 self.get_group_url(group_id),
@@ -73,18 +75,18 @@ class AlphacommSpider(scrapy.Spider):
             it['manufacturer'] = brands
             it['sku'] = item['itemid']
             it['upc'] = item['custitem_upc']
-            it['short_desc'] = item['storedescription']
+            it['short_desc'] = item['pagetitle']
 
             # clean long description field
             desc = item['storedetaileddescription']
-            it['long_desc'] = ' '.join(desc.split()).replace("\"\"", "\"")
+            it['long_desc'] = ' '.join(desc.split()).replace("\"\"", "\"").replace("\r","").replace("\n","")
 
-            # # log event: no price set
-            # try:
-            #     it['cost'] = "${}".format(item['onlinecustomerprice'],)
+            # log event: no price set
+            try:
+                it['cost'] = "${}".format(item['onlinecustomerprice'],)
 
-            # except KeyError, e:
-            #     self.logger.warning(str(e))
+            except KeyError, e:
+                self.logger.warning(str(e))
 
             # done, save item
             self.scrapped_sku.append(item['itemid'])
