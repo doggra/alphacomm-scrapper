@@ -11,7 +11,7 @@ __version__ = "1.0.1"
 import scrapy
 from scrapy.exceptions import CloseSpider
 from b2bsoft.utils import get_json_from_response, close_spider, create_new_item
-
+from scrapy.utils.project import get_project_settings
 
 class AlphacommSpider(scrapy.Spider):
 
@@ -21,6 +21,7 @@ class AlphacommSpider(scrapy.Spider):
                                                   +'&fieldset=detail']
 
     def __init__(self):
+        self.csv_delimiter = get_project_settings().get('CSV_DELIMITER', '')
         self.scrapped_sku = []
 
 
@@ -70,20 +71,26 @@ class AlphacommSpider(scrapy.Spider):
             brands = ', '.join([ b['label'] for b in bra['values'] ])
 
             # populate fields
-            it['category'] = cat['values'][0]['label']
-            it['manufacturer'] = brands
+            it['category'] = cat['values'][0]['label'][:20]
+            it['manufacturer'] = brands[:50]
             it['sku'] = item['itemid']
-            it['upc'] = item['custitem_upc']
-            it['short_desc'] = item['pagetitle']
+            it['upc'] = item['custitem_upc'][:50]
+            it['short_desc'] = item['pagetitle'].replace(self.csv_delimiter, " ")[:255]
 
             # clean long description field
             desc = item['storedetaileddescription']
-            it['long_desc'] = ' '.join(desc.split()).replace("\"\"", "\"").replace("\r","").replace("\n","")
+            it['long_desc'] = ' '.join(desc.split()) \
+                                 .replace("\"\"", "\"") \
+                                 .replace("\r","") \
+                                 .replace("\n","") \
+                                 .replace(self.csv_delimiter, " ") \
+                                 [:1000]
 
-            try:
-                it['cost'] = "${}".format(item['onlinecustomerprice'],)
-            except KeyError, e:
-                self.logger.warning(str(e))
+            # UNCOMMENT FOR FETCHING ITEM PRICE
+            # try:
+            #     it['cost'] = "${}".format(item['onlinecustomerprice'],)
+            # except KeyError, e:
+            #     self.logger.warning(str(e))
 
             # done, save item
             self.scrapped_sku.append(item['itemid'])

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import datetime
+
 BOT_NAME = 'b2bsoft'
 SPIDER_MODULES = ['b2bsoft.spiders']
 NEWSPIDER_MODULE = 'b2bsoft.spiders'
@@ -7,6 +9,11 @@ NEWSPIDER_MODULE = 'b2bsoft.spiders'
 USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36'
 ROBOTSTXT_OBEY = False
 
+LOG_FILE = 'alphacomm.log'
+LOG_LEVEL = 'INFO'
+
+FEED_URI = "Accessories_Alphacomm_{}_1.csv".format(datetime.datetime.now().strftime("%Y%m%d"),)
+FEED_FORMAT = 'csv'
 FEED_EXPORTERS = {
 	'csv': 'b2bsoft.exporters.CsvExporter'
 }
