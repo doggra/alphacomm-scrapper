@@ -6,7 +6,9 @@ This is shopalphacomm.com scraper for obtaining products from shop catalog.
 Project installation
 --------------------
 
->>> $ sudo apt-get install python-dev python-pip libxml2-dev libxslt1-dev zlib1g-dev libffi-dev libssl-dev virtualenv
+{code}
+$ sudo apt-get install python-dev python-pip libxml2-dev libxslt1-dev zlib1g-dev libffi-dev libssl-dev virtualenv
+{code}
 
 >>> $ virtualenv env
 >>> $ source env/bin/activate
