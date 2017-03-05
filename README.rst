@@ -3,12 +3,16 @@ Alphacomm WebScraper
 This is shopalphacomm.com scraper for obtaining products from shop catalog.
 
 
-Project installation
+Install dependencies
 --------------------
 
-{code}
-$ sudo apt-get install python-dev python-pip libxml2-dev libxslt1-dev zlib1g-dev libffi-dev libssl-dev virtualenv
-{code}
+>>> $ sudo apt-get install python-dev python-pip
+>>> $ sudo apt-get install libxml2-dev libxslt1-dev
+>>> $ sudo apt-get install zlib1g-dev libffi-dev libssl-dev virtualenv
+
+
+Setup virtual enviroment and python packages
+--------------------------------------------
 
 >>> $ virtualenv env
 >>> $ source env/bin/activate
