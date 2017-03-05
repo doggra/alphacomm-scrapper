@@ -1,6 +1,6 @@
 Alphacomm WebScraper
 ====================
-This is shopalphacomm.com scraper for obtaining products from shop catalog.
+This is scraper for obtaining products from shop catalog (shopalphacomm.com).
 
 
 Install dependencies
