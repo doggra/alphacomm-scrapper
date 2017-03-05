@@ -13,6 +13,7 @@ from scrapy.exceptions import CloseSpider
 from b2bsoft.utils import get_json_from_response, close_spider, create_new_item
 from scrapy.utils.project import get_project_settings
 
+
 class AlphacommSpider(scrapy.Spider):
 
     name = "alphacomm"
