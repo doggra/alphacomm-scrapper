@@ -12,7 +12,7 @@ import scrapy
 from scrapy.exceptions import CloseSpider
 from b2bsoft.utils import get_json_from_response, close_spider, create_new_item
 from scrapy.utils.project import get_project_settings
-
+from scrapy.selector import Selector
 
 class AlphacommSpider(scrapy.Spider):
 
@@ -86,6 +86,34 @@ class AlphacommSpider(scrapy.Spider):
                                  .replace("\n","") \
                                  .replace(self.csv_delimiter, " ") \
                                  [:1000]
+
+            extra_buttons_selector = Selector(
+                text=item['custitem_sc_itemdetails_buttons']
+            )
+
+            video_link = extra_buttons_selector.css('iframe::attr(src)').extract()
+            it['video'] = video_link
+
+            all_extra_links = extra_buttons_selector.css('a')
+            try:
+                it['brochure'] = [ l.css('::attr(href)').extract()[0] for l in all_extra_links if l.css('::text').extract()[0] == "Download Brochure"][0]
+
+                # relative link? add domain
+                if it['brochure'].startswith("/"):
+                    it['brochure'] = "http://shopalphacomm.com"+it['brochure']
+
+            except IndexError:
+                # item have no brochure
+                it['brochure'] = ''
+
+            # get images urls
+            try:
+                it['images'] = ', '.join([ u['url'] for u in item['itemimages_detail']['media']['urls'] ])
+            except KeyError:
+                # no images?
+                it['images'] = ''
+
+            it['scrap_link'] = response.request.url
 
             # UNCOMMENT FOR FETCHING ITEM PRICE
             # try:

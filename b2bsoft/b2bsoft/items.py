@@ -15,4 +15,8 @@ class ShopItem(Item):
     category = Field()
     manufacturer = Field()
     active = Field()
+    brochure = Field()
+    video = Field()
+    images = Field()
+    scrap_link = Field()
 

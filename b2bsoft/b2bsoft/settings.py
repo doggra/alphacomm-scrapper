@@ -10,7 +10,7 @@ USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, lik
 ROBOTSTXT_OBEY = False
 
 LOG_FILE = 'alphacomm.log'
-LOG_LEVEL = 'INFO'
+LOG_LEVEL = 'DEBUG'
 
 FEED_URI = "Accessories_Alphacomm_{}_1.csv".format(datetime.datetime.now().strftime("%Y%m%d"),)
 FEED_FORMAT = 'csv'
@@ -32,6 +32,17 @@ FIELDS_TO_EXPORT = [
 	'manufacturer',
 	'active',
 ]
+
+ADDITIONAL_FIELDS = [
+	'brochure',
+	'video',
+	'images',
+	'scrap_link',
+]
+
+ALL_FIELDS_TO_EXPORT = []
+ALL_FIELDS_TO_EXPORT += FIELDS_TO_EXPORT
+ALL_FIELDS_TO_EXPORT += ADDITIONAL_FIELDS
 
 CSV_DELIMITER = "|"
 
