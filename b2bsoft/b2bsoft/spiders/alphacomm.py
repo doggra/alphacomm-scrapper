@@ -72,11 +72,11 @@ class AlphacommSpider(scrapy.Spider):
             brands = ', '.join([ b['label'] for b in bra['values'] ])
 
             # populate fields
-            it['category'] = cat['values'][0]['label'][:20]
-            it['manufacturer'] = brands[:50]
+            it['category'] = cat['values'][0]['label']
+            it['manufacturer'] = brands
             it['sku'] = item['itemid']
-            it['upc'] = item['custitem_upc'][:50]
-            it['short_desc'] = item['pagetitle'].replace(self.csv_delimiter, " ")[:255]
+            it['upc'] = item['custitem_upc']
+            it['short_desc'] = item['pagetitle'].replace(self.csv_delimiter, " ")
 
             # clean long description field
             desc = item['storedetaileddescription']
@@ -84,8 +84,7 @@ class AlphacommSpider(scrapy.Spider):
                                  .replace("\"\"", "\"") \
                                  .replace("\r","") \
                                  .replace("\n","") \
-                                 .replace(self.csv_delimiter, " ") \
-                                 [:1000]
+                                 .replace(self.csv_delimiter, " ")
 
             extra_buttons_selector = Selector(
                 text=item['custitem_sc_itemdetails_buttons']

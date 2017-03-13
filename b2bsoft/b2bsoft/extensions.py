@@ -21,7 +21,7 @@ def create_excel(spider):
                 header = fieldname.upper()
 
             elif fieldname == "is_serial":
-                header = "Is Serial"
+                header = "Is serial"
             elif fieldname == "short_desc":
                 header = "Short Description"
             elif fieldname == "long_desc":
@@ -36,17 +36,15 @@ def create_excel(spider):
 
             # skip first line (header)
             next(csv_file)
+            line = 1
 
             # fetch data from every line
-            line = 1
             for row in csv_file:
 
                 # get row data
                 row_data = row.split("|")
-                enumerated_row_data = enumerate(row_data)
 
-                # check if any of required fields are empty - if so,
-                # do not export that item to XLS
+                # required fields - skip if any doesn't exist
                 required_fields = [
                     row_data[0],
                     row_data[1],
@@ -57,17 +55,34 @@ def create_excel(spider):
                     row_data[9],
                     row_data[10],
                 ]
-
                 if '' in required_fields or None in required_fields:
                     continue
 
-                # write cells to columns
+                # set max characters limits and write columns
+                enumerated_row_data = enumerate(row_data)
+
                 for i, cell in enumerated_row_data:
+
+                    if i == 2:
+                        cell = cell[:50]
+
+                    elif i == 4:
+                        cell = cell[:255]
+
+                    elif i == 5:
+                        cell = cell[:1000]
+
+                    elif i == 9:
+                        cell = cell[:20]
+
+                    elif i == 10:
+                        cell = cell[:50]
+
                     ws.write(line, i, cell)
 
                 line += 1
 
-        # save to EXCEL
+        # create EXCEL file
         wb.save(csv_filename.replace('csv', 'xls'))
 
 class ExcelExtension(object):
