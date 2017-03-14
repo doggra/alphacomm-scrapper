@@ -17,6 +17,7 @@ class ShopItem(Item):
     active = Field()
     brochure = Field()
     video = Field()
-    images = Field()
+    image_urls = Field()
+    image_paths = Field()
     scrap_link = Field()
 

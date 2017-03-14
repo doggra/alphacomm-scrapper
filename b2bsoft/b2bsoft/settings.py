@@ -15,29 +15,31 @@ LOG_LEVEL = 'DEBUG'
 FEED_URI = "Accessories_Alphacomm_{}_1.csv".format(datetime.datetime.now().strftime("%Y%m%d"),)
 FEED_FORMAT = 'csv'
 FEED_EXPORTERS = {
-	'csv': 'b2bsoft.exporters.CsvExporter'
+    'csv': 'b2bsoft.exporters.CsvExporter'
 }
 
+IMAGES_STORE = 'images'
+
 FIELDS_TO_EXPORT = [
-	'vendor',
-	'sku',
-	'upc',
-	'is_serial',
-	'short_desc',
-	'long_desc',
-	'msrp',
-	'cost',
-	'department',
-	'category',
-	'manufacturer',
-	'active',
+    'vendor',
+    'sku',
+    'upc',
+    'is_serial',
+    'short_desc',
+    'long_desc',
+    'msrp',
+    'cost',
+    'department',
+    'category',
+    'manufacturer',
+    'active',
 ]
 
 ADDITIONAL_FIELDS = [
-	'brochure',
-	'video',
-	'images',
-	'scrap_link',
+    'brochure',
+    'video',
+    'image_paths',
+    'scrap_link',
 ]
 
 ALL_FIELDS_TO_EXPORT = []
@@ -67,10 +69,13 @@ CONCURRENT_REQUESTS_PER_IP = CONCURRENT_REQUESTS
 #}
 
 EXTENSIONS = {
-   'b2bsoft.extensions.ExcelExtension': 100,
+    'b2bsoft.extensions.ExcelExtension': 100,
 }
 
-# ITEM_PIPELINES = {'b2bsoft.pipelines.CSVPipeline': 300 }
+ITEM_PIPELINES = {
+    'b2bsoft.pipelines.ImagesPipeline': 1,
+#   'b2bsoft.pipelines.CSVPipeline': 300
+}
 
 # HTTPCACHE_ENABLED = True
 # HTTPCACHE_EXPIRATION_SECS = 0

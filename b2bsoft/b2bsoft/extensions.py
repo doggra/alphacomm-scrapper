@@ -50,7 +50,6 @@ def create_excel(spider):
                     row_data[1],
                     row_data[3],
                     row_data[4],
-                    row_data[5],
                     row_data[8],
                     row_data[9],
                     row_data[10],

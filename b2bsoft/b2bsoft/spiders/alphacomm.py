@@ -107,10 +107,9 @@ class AlphacommSpider(scrapy.Spider):
 
             # get images urls
             try:
-                it['images'] = ', '.join([ u['url'] for u in item['itemimages_detail']['media']['urls'] ])
+                it['image_urls'] = [ u['url'] for u in item['itemimages_detail']['media']['urls'] ]
             except KeyError:
-                # no images?
-                it['images'] = ''
+                it['image_urls'] = ''
 
             it['scrap_link'] = response.request.url
 

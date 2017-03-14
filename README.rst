@@ -32,6 +32,7 @@ All settings are located in b2bsoft/b2bsoft/settings.py .
 These below are the most important ones.
 More on docs: https://doc.scrapy.org/en/latest/topics/settings.html
 
+* IMAGES_STORE `directory where images are stored`
 * FEED_URI `output file for scraping data`
 * FIELDS_TO_EXPORT `list of fields for export. If you add new field into ShopItem (items.py), you also need to add it here. This option must be specified to set specific order of fields in export file
 * CSV_DELIMITER `delimiter for CSV file`
