@@ -10,7 +10,7 @@ USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, lik
 ROBOTSTXT_OBEY = False
 
 LOG_FILE = 'alphacomm.log'
-LOG_LEVEL = 'DEBUG'
+LOG_LEVEL = 'INFO'
 
 FEED_URI = "Accessories_Alphacomm_{}_1.csv".format(datetime.datetime.now().strftime("%Y%m%d"),)
 FEED_FORMAT = 'csv'
@@ -52,6 +52,21 @@ CONCURRENT_REQUESTS = 1
 CONCURRENT_REQUESTS_PER_DOMAIN = CONCURRENT_REQUESTS
 CONCURRENT_REQUESTS_PER_IP = CONCURRENT_REQUESTS
 
+# Addresses where report should be sent
+REPORT_EMAILS = [
+    "radek@nuidi.com"
+]
+
+# Mail server configuration
+MAIL_HOST = 'smtp.gmail.com'
+MAIL_PORT = 587
+MAIL_USER = "alphacommspider@gmail.com"
+MAIL_PASS = "a&rgarg4r549782*&&"
+MAIL_FROM = MAIL_USER
+MAIL_TLS = True
+MAIL_SSL = False
+
+
 #COOKIES_ENABLED = False
 #TELNETCONSOLE_ENABLED = False
 
@@ -70,11 +85,11 @@ CONCURRENT_REQUESTS_PER_IP = CONCURRENT_REQUESTS
 
 EXTENSIONS = {
     'b2bsoft.extensions.ExcelExtension': 100,
+    'b2bsoft.extensions.SendReportExtension': 200,
 }
 
 ITEM_PIPELINES = {
-    'b2bsoft.pipelines.ImagesPipeline': 1,
-#   'b2bsoft.pipelines.CSVPipeline': 300
+    'b2bsoft.pipelines.ImagesPipeline': 1
 }
 
 # HTTPCACHE_ENABLED = True
