@@ -62,7 +62,7 @@ def create_excel(spider):
                 short_description = row_data[4][:255]
 
                 # slice fields to EXCEL only
-                enumerated_row_data = enumerate(row_data[:11])
+                enumerated_row_data = enumerate(row_data[:12])
 
                 # set max characters limits and write columns
                 for i, cell in enumerated_row_data:
