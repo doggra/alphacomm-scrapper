@@ -19,7 +19,5 @@ class ImagesPipeline(ImagesPipeline):
     def item_completed(self, results, item, info):
         settings = get_project_settings()
         image_paths = ["{}/{}".format(settings.get('IMAGES_STORE', 'images'), x['path']) for ok, x in results if ok]
-        if not image_paths:
-            raise DropItem("Item contains no images")
         item['image_paths'] = image_paths
         return item
