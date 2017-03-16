@@ -42,7 +42,7 @@ class AlphacommSpider(scrapy.Spider):
         item_groups_ids = [ d['label'] for d in custitem_groupid['values']\
                                                          if 'label' in d ]
         # make request for every group
-        for group_id in item_groups_ids[:1]:
+        for group_id in item_groups_ids:
 
             yield scrapy.Request(
                 self.get_group_url(group_id),
