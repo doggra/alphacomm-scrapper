@@ -54,7 +54,8 @@ CONCURRENT_REQUESTS_PER_IP = CONCURRENT_REQUESTS
 
 # Addresses where report should be sent
 REPORT_EMAILS = [
-    "radek@nuidi.com"
+    "vlad@zealus.com",
+    "dpilvinskyi@b2bsoft.com"
 ]
 
 # Mail server configuration
