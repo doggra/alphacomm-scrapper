@@ -6,24 +6,24 @@ This is scraper for obtaining products from shop catalog (shopalphacomm.com).
 Install dependencies
 --------------------
 
->>> $ sudo apt-get install python-dev python-pip
->>> $ sudo apt-get install libxml2-dev libxslt1-dev
->>> $ sudo apt-get install zlib1g-dev libffi-dev libssl-dev virtualenv
+>>> sudo apt-get install python-dev python-pip
+>>> sudo apt-get install libxml2-dev libxslt1-dev
+>>> sudo apt-get install zlib1g-dev libffi-dev libssl-dev virtualenv
 
 
 Setup virtual enviroment and python packages
 --------------------------------------------
 
->>> $ virtualenv env
->>> $ source env/bin/activate
->>> $ pip install -U pip
->>> $ pip install -r requirements.txt
+>>> virtualenv env
+>>> source env/bin/activate
+>>> pip install -U pip
+>>> pip install -r requirements.txt
 
 
 Running spider
 --------------
->>> $ cd ./b2bsoft
->>> $ scrapy crawl alphacomm
+>>> cd ./b2bsoft
+>>> scrapy crawl alphacomm
 
 
 Settings
